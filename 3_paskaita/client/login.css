@@ -1,0 +1,10 @@
+body{
+    text-align: center;
+}
+input{
+    margin-bottom: 10px;
+    padding: 5px;
+}
+#btn{
+    cursor: pointer;
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vartotojų registracija</title>
+    <link rel="stylesheet" href="register.css">
+</head>
+<body>
+    <h2>Registracija naujiems klientams</h2>
+    <form action="">
+        <div>
+            <label for="psw">Slaptazodis:*</label>
+            <input type="password" name="psw" id="psw" required> 
+        </div>
+        <div>
+            <label for="repeatPsw">Pakartokite saptažodį:*</label>
+            <input type="password" name="repeatPsw" id="repeatPsw" required> 
+        </div>
+        <div>
+            <label for="email">El. paštas:*</label>
+            <input type="email" name="email" id="email" required>
+        </div>
+        <div>
+            <label for="name">Vardas:*</label>
+            <input type="text" name="name" id="name" required>
+        </div>
+        <div>
+            <label for="surname">Pavardė:*</label>
+            <input type="text" name="surname" id="surname" required>
+        </div>
+        <div>
+            <label for="address">Adresas:*</label>
+            <input type="text" name="adress" id="address" required>
+        </div>
+        <div>
+            <label for="postCode">Pašto kodas:</label>
+            <input type="number" name="postCode" id="postCode">
+        </div>
+        <div>
+            <label for="city">Miestas:*</label>
+            <input type="text" name="city" id="city" required>
+        </div>
+        <div>
+            <label for="phone">Telefonas:*</label>
+            <input type="number" name="phone" id="phone" placeholder="+370" required>
+        </div>
+        <div>
+            <label for="check">Aš sutinku su paslaugų teikimo sąlygomis:</label>
+            <input type="checkbox" name="check" id="check" required>
+        </div>
+        <div>
+            <input type="submit" value="Registruotis" id="btn">
+        </div>
+    </form>
+
+    <script src="./register.js" type="module"></script>
+</body>
+</html>
