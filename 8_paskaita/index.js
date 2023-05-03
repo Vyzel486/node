@@ -54,13 +54,13 @@ app.post('/', async (req, res) => {
   }
 });
 
-app.post('/audi', async (req, res) => {
+app.post('/volvo', async (req, res) => {
   try {
     const con = await client.connect();
     const data = await con
       .db('car_management')
       .collection('cars')
-      .insertOne({ brand: 'Audi', model: 'A4' }); // prideda vieną objektą
+      .insertOne({ brand: 'Volvo', model: 'XC90' }); // prideda vieną objektą
     await con.close();
     res.send(data);
   } catch (error) {
