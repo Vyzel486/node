@@ -1,58 +1,70 @@
+// npm install nodemon --save-dev - įrašo į devDependencies
+// --save-dev flagas
+// devDependencies - tai moduliai, be kurių mūsų aplikacija veiktų,
+// tačiau jie yra padedantys developinimui
+
+// DB - database - duomenų baszė
+// .find().toArray() - grąžiną visus dokumentus iš kolekcijos
+// .insertOne(item) - prideda vieną dokumentą į kolekciją
+
 const express = require('express');
 const cors = require('cors');
+const { MongoClient } = require('mongodb');
 require('dotenv').config();
 
 const port = process.env.PORT || 8080;
+const URI = process.env.DB_CONNECTION_STRING;
+// galima rasti mongodb.com ant klasterio "Connect" mygtukas ir Drivers skiltis
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-const tasks = [];
+const client = new MongoClient(URI); // MongoDB instance
 
-app.get('/tasks', (req, res) => {
-  res.send(tasks);
-});
-
-app.post('/tasks', (req, res) => {
-  const task = req.body;
-  const newTask = { id: tasks.length + 1, ...task };
-  tasks.push(newTask);
-  res.send(newTask);
-});
-
-app.get('/tasks/:id', (req, res) => {
-  const id = +req.params.id;
-  const foundTask = tasks.find((task) => task.id === id);
-  if (foundTask) {
-    res.send(foundTask);
-  } else {
-    res.status(404).send({ message: 'Task not found' });
+// async funkcija, kad galėtume naudoti await prisijungiat prie DB
+app.get('/', async (req, res) => {
+  try {
+    const con = await client.connect(); // prisijungiame prie duomenu bazes
+    const data = await con // issitraukiame duomenis is duomenu bazes
+      .db('car_management')
+      .collection('cars')
+      .find()
+      .toArray(); // išsitraukiame duomenis iš duomenų bazęs
+    await con.close(); // uždarom prisijungimą prie duomenų bazės
+    res.send(data);
+  } catch (error) {
+    // 500 statusas - internal server error - serveris neapdorojo arba nežino kas per klaida
+    res.status(500).send(error);
   }
 });
 
-app.delete('/tasks/:id', (req, res) => {
-  const id = +req.params.id;
-  const foundIndex = tasks.findIndex((task) => task.id === id);
-  if (foundIndex !== -1) {
-    const deletingTask = tasks.find((task) => task.id === id);
-    tasks.splice(foundIndex, 1);
-    res.send(deletingTask);
-  } else {
-    res.status(404).send({ message: 'Task not found' });
+app.post('/', async (req, res) => {
+  try {
+    const car = req.body;
+    const con = await client.connect();
+    const data = await con
+      .db('car_management')
+      .collection('cars')
+      .insertOne(car); // prideda vieną objektą
+    await con.close();
+    res.send(data);
+  } catch (error) {
+    res.status(500).send(error);
   }
 });
 
-app.put('/tasks/:id', (req, res) => {
-  const id = +req.params.id;
-  const foundIndex = tasks.findIndex((task) => task.id === id);
-  if (foundIndex !== -1) {
-    const task = req.body;
-    const updatingTask = { id, ...task };
-    tasks.splice(foundIndex, 1, updatingTask);
-    res.send(updatingTask);
-  } else {
-    res.status(404).send({ message: 'Task not found' });
+app.post('/audi', async (req, res) => {
+  try {
+    const con = await client.connect();
+    const data = await con
+      .db('car_management')
+      .collection('cars')
+      .insertOne({ brand: 'Audi', model: 'A4' }); // prideda vieną objektą
+    await con.close();
+    res.send(data);
+  } catch (error) {
+    res.status(500).send(error);
   }
 });
 
