@@ -23,6 +23,7 @@ newUserBtn.addEventListener('click', () => {
   const nameField = document.querySelector('#name').value;
   const surnameField = document.querySelector('#surname').value;
   const email = document.querySelector('#email').value;
+
   const membership = document.querySelector('select').value;
 
   fetch('http://localhost:3000/users', {

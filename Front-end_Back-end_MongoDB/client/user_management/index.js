@@ -46,11 +46,11 @@ const showInfo = (info) => {
 
     const email = document.createElement('div');
     email.style.padding = '7px 0 0 10px';
-    email.textContent = `Email address: ${data.email}`;
+    email.innerHTML = `Email address: <span class="blue">${data.email}</span>`;
 
     const membership = document.createElement('div');
     membership.style.padding = '7px 0 0 10px';
-    membership.textContent = `Membership: ${data.service_id}`;
+    membership.innerHTML = `Membership: <span class="blue">${data.service_id}</span>`;
 
     const ip = document.createElement('div');
     ip.style.padding = '7px 0 0 10px';
@@ -91,10 +91,10 @@ const showInfo = (info) => {
         nameAndSurname.textContent = `${data.name} ${data.surname}`;
         const email = document.createElement('div');
         email.style.padding = '7px 0 0 10px';
-        email.textContent = `Email address: ${data.email}`;
+        email.innerHTML = `Email address: <span class="blue">${data.email}</span>`;
         const membership = document.createElement('div');
         membership.style.padding = '7px 0 0 10px';
-        membership.textContent = `Membership: ${data.service_id}`;
+        membership.innerHTML = `Membership: <span class="blue">${data.service_id}</span>`;
         const ip = document.createElement('div');
         ip.style.padding = '7px 0 0 10px';
         ip.textContent = `IP: ${data.ip}`;
