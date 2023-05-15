@@ -33,7 +33,6 @@ function showInfo(info) {
       marginTop: '1rem',
       display: 'inline-block',
     });
-
     const output = document.createElement('div');
     Object.assign(output.style, {
       textAlign: 'center',
