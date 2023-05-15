@@ -46,12 +46,8 @@ app.get('/usersCount', async (req, res) => {
       .db('MyDataBase')
       .collection('Users')
       .countDocuments();
-    // countDocuments = count, bet count yra deprecated (pasenęs ir nenaudojamas)
-    // countDocuments() - grąžina skaičių, kiek yra dokumentų iš viso
-    // countDocuments({ product: 'toothbrush' }) - grąžina pagal kriterijų pvz. kiek yra toothbrush
     await con.close();
-    // data = 10
-    res.send({ count: data }); // grąžinam JSON, todėl reikia objekto ir rakto, nes data yra pvz. 10
+    res.send({ count: data });
   } catch (error) {
     res.status(500).send(error);
   }
@@ -64,12 +60,8 @@ app.get('/usersCount/Jonas', async (req, res) => {
       .db('MyDataBase')
       .collection('Users')
       .countDocuments({ name: 'Jonas Petravicius' });
-    // countDocuments = count, bet count yra deprecated (pasenęs ir nenaudojamas)
-    // countDocuments() - grąžina skaičių, kiek yra dokumentų iš viso
-    // countDocuments({ product: 'toothbrush' }) - grąžina pagal kriterijų pvz. kiek yra toothbrush
     await con.close();
-    // data = 10
-    res.send({ count: data }); // grąžinam JSON, todėl reikia objekto ir rakto, nes data yra pvz. 10
+    res.send({ count: data });
   } catch (error) {
     res.status(500).send(error);
   }
@@ -81,7 +73,7 @@ app.get('/cities', async (req, res) => {
     const data = await con
       .db('MyDataBase')
       .collection('Users')
-      .distinct('city'); // grąžina unikalias reikšmes, būtinai reikia nurodyti kriterijų t.y. raktą
+      .distinct('city');
     await con.close();
     res.send(data);
   } catch (error) {
@@ -90,7 +82,6 @@ app.get('/cities', async (req, res) => {
 });
 
 app.get('/lowestIncome', async (req, res) => {
-  // total amount of money spent by each customer - kiek kiekvienas asmuo išleido pinigų
   try {
     const con = await client.connect();
     const data = await con
@@ -98,9 +89,6 @@ app.get('/lowestIncome', async (req, res) => {
       .collection('Users')
       .aggregate([{ $sort: { income: -1 } }])
       .toArray();
-    // $group - sugrupuoja, _id: $customer - naudoja unikalų customerį,
-    // totalAmount: { $sum: '$total' } - totalAmount raktas su suma kurią sudeda iš $total lauko
-    // $sort: { totalAmount: -1 } - sortina mažėjimo tvarka pagal tam tikrą kriterijų: totalAmount
     await con.close();
     res.send(data);
   } catch (error) {
@@ -109,7 +97,6 @@ app.get('/lowestIncome', async (req, res) => {
 });
 
 app.get('/highestIncome', async (req, res) => {
-  // total amount of money spent by each customer - kiek kiekvienas asmuo išleido pinigų
   try {
     const con = await client.connect();
     const data = await con
@@ -117,41 +104,12 @@ app.get('/highestIncome', async (req, res) => {
       .collection('Users')
       .aggregate([{ $sort: { income: 1 } }])
       .toArray();
-    // $group - sugrupuoja, _id: $customer - naudoja unikalų customerį,
-    // totalAmount: { $sum: '$total' } - totalAmount raktas su suma kurią sudeda iš $total lauko
-    // $sort: { totalAmount: -1 } - sortina mažėjimo tvarka pagal tam tikrą kriterijų: totalAmount
     await con.close();
     res.send(data);
   } catch (error) {
     res.status(500).send(error);
   }
 });
-
-// app.get('/dynamicUsersCount/:name', async (req, res) => {
-//   // total amount of money spent on each liquid product
-//   try {
-//     const { name } = req.params;
-//     const con = await client.connect();
-//     const data = await con
-//       .db('MyDataBase')
-//       .collection('Users')
-//       .aggregate([
-//         { $match: { name: { $in: ['Jonas'] } } },
-//         { $group: { _id: name, total: { $sum: name } } },
-//       ])
-//       .toArray();
-//     // $match - atitikmenys,
-//     // {product:{ $in:['shampoo', 'conditioner',
-// 'mouthwash']}} žiūrima per product; išvardintuose
-//     // $group - sugrupuoja, _id: $product - naudoja unikalų produktą,
-//     // totalAmount: { $sum: '$total' } - totalAmount raktas su suma kurią sudeda iš $total lauko
-//     // $sort: { totalAmount: 1 } - sortina didėjimo tvarka pagal tam tikrą kriterijų: totalAmount
-//     await con.close();
-//     res.send(data);
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// });
 
 app.get('/dynamicUsersCount/:name', async (req, res) => {
   try {
@@ -161,12 +119,9 @@ app.get('/dynamicUsersCount/:name', async (req, res) => {
       .db('MyDataBase')
       .collection('Users')
       .countDocuments({ name });
-    // countDocuments = count, bet count yra deprecated (pasenęs ir nenaudojamas)
-    // countDocuments() - grąžina skaičių, kiek yra dokumentų iš viso
-    // countDocuments({ product: 'toothbrush' }) - grąžina pagal kriterijų pvz. kiek yra toothbrush
     await con.close();
     // data = 10
-    res.send({ count: data }); // grąžinam JSON, todėl reikia objekto ir rakto, nes data yra pvz. 10
+    res.send({ count: data });
   } catch (error) {
     res.status(500).send(error);
   }

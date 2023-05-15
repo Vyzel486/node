@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Create User</title>
+</head>
+<body>
+    <header>
+        <a id="firstBtn" href="">Memberships</a>
+        <a id="secondBtn" href="">Users</a>
+    </header>
+
+    <main>
+        <h2>Create User</h2>
+        <div class="createUserCard">
+            <div class="conteiner">
+                <label for="name">First Name<span>*</span></label>
+                <input class="inputText" type="text" name="" id="name" placeholder="First Name" required><br>
+
+                <label for="email">Email Address<span>*</span></label>
+                <input class="inputText" type="email" name="" id="email" placeholder="Email Address" required><br>
+
+                <label  for="select">Change Membership</label>
+                <select id="select">
+                    <option value="">Choose one...</option>
+                </select><br>
+            </div>
+            <div class="surname">
+                <label for="surname">Last Name<span>*</span></label>
+                <input class="inputText" type="text" name="" id="surname" placeholder="Last Name" required>
+            </div>
+            <div class="buttons">
+                <button id="cancelBtn">Cancel</button>
+                <button id="newUserBtn">New User</button> 
+            </div>
+            
+        </div>
+        
+    </main>
+
+    <footer>
+        Copyright &copy2023 Membership Manager
+    </footer>
+
+    <script src="index.js"></script>
+</body>
+</html>
