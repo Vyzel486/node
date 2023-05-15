@@ -59,11 +59,11 @@ const showInfo = (info) => {
     userCard.append(nameAndSurname, email, membership, ip);
     container.append(userCard);
   });
-  document.querySelector('#sortBtn').addEventListener('click', () => {
+  const sorting = document.querySelector('select');
+  sorting.addEventListener('change', () => {
     const container = document.querySelector('.container');
     container.textContent = '';
-    const sorting = document.querySelector('select').value;
-    fetch(`http://localhost:3000/users/${sorting}`)
+    fetch(`http://localhost:3000/users/${sorting.value}`)
       .then((res) => res.json())
       .then((data) => sortingUsers(data))
       .catch((err) => console.error(err));
